@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
+import { DashboardWrapper } from "@/wrapper";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -22,12 +23,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body className="font-inter">{children}</body>
+      <body className="font-inter">
+        <DashboardWrapper>{children}</DashboardWrapper>
+      </body>
     </html>
   );
 }
