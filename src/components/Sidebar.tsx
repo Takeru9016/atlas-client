@@ -23,11 +23,13 @@ import {
 import SidebarLink from "./SidebarLink";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
+import { useGetProjectsQuery } from "@/state/api";
 
 export default function Sidebar() {
   const [showProjects, setShowProjects] = useState(true);
   const [showPriority, setshowPriority] = useState(true);
 
+  const { data: projects } = useGetProjectsQuery();
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
@@ -134,6 +136,19 @@ export default function Sidebar() {
         </button>
 
         {/* PROJECT LIST */}
+        {showProjects && (
+          <div className="flex flex-col gap-1">
+            {projects?.map((project) => (
+              <SidebarLink
+                key={project.id}
+                icon={Briefcase}
+                label={project.name}
+                href={`/projects/${project.id}`}
+                className="h-6 w-6 text-gray-800 dark:text-gray-100"
+              />
+            ))}
+          </div>
+        )}
 
         {/* PRIORITIES LINK */}
         <button
