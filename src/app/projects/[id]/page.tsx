@@ -1,17 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { ProjectHeader } from "@/components";
+import { ProjectHeader, BoardView } from "@/components";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default function Project({ params }: Props) {
-  const { id } = params;
+  const [id, setId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
+
+  // Resolve the params promise to extract `id`
+  useEffect(() => {
+    params
+      .then(({ id }) => setId(id))
+      .catch((err) => {
+        console.error("Error fetching params:", err);
+      });
+  }, [params]);
+
+  // Display a loading state until the `id` is resolved
+  if (!id) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -21,10 +35,10 @@ export default function Project({ params }: Props) {
         id={id}
       /> */}
       <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      {/* {activeTab === "Board" && (
-        <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+      {activeTab === "Board" && (
+        <BoardView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {activeTab === "List" && (
+      {/* {activeTab === "List" && (
         <List id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
       {activeTab === "Timeline" && (

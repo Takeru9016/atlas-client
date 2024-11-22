@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 import Header from "./Header";
@@ -96,7 +98,8 @@ export default function ProjectHeader({ activeTab, setActiveTab }: Props) {
 }
 
 function TabButton({ name, icon, activeTab, setActiveTab }: TabButtonProps) {
-  const isActive = activeTab;
+  const isActive = activeTab === name; // Compare activeTab with name to determine if this tab is active
+
   return (
     <button
       className={`relative flex gap-2 px-1 py-2 text-gray-500 after:absolute after:-bottom-[9px] after:left-0 after:h-[1px] after:w-full hover:text-blue-600 dark:text-neutral-500 dark:hover:text-white sm:px-2 lg:px-4 ${
