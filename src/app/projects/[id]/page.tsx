@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { ProjectHeader, BoardView } from "@/components";
+import { ProjectHeader, BoardView, ListView, TimelineView } from "@/components";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -38,13 +38,13 @@ export default function Project({ params }: Props) {
       {activeTab === "Board" && (
         <BoardView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {/* {activeTab === "List" && (
-        <List id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+      {activeTab === "List" && (
+        <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
       {activeTab === "Timeline" && (
-        <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+        <TimelineView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {activeTab === "Table" && (
+      {/* {activeTab === "Table" && (
         <Table id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )} */}
     </div>
