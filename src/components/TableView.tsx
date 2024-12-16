@@ -1,7 +1,7 @@
-import { useAppSelector } from "@/app/redux";
-import { useGetTasksQuery } from "@/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
+import { useAppSelector } from "@/app/redux";
+import { useGetTasksQuery } from "@/state/api";
 import Header from "./Header";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 
@@ -90,7 +90,18 @@ export default function TableView({
   return (
     <div className="h=[540px] w-full px-4 pb-8 xl:px-6">
       <div className="pt-5">
-        <Header name="Table" />
+        <Header
+          name="Table"
+          buttonComponent={
+            <button
+              className="flex items-center rounded-md bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
+              onClick={() => setIsModalNewTaskOpen(true)}
+            >
+              Add Task
+            </button>
+          }
+          isSmallText
+        />
       </div>
       <DataGrid
         rows={tasks || []}

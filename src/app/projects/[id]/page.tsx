@@ -8,6 +8,7 @@ import {
   ListView,
   TimelineView,
   TableView,
+  ModalNewTask,
 } from "@/components";
 
 type Props = {
@@ -35,11 +36,11 @@ export default function Project({ params }: Props) {
 
   return (
     <div>
-      {/* <ModalNewTask
+      <ModalNewTask
         isOpen={isModalNewTaskOpen}
         onClose={() => setIsModalNewTaskOpen(false)}
         id={id}
-      /> */}
+      />
       <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === "Board" && (
         <BoardView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
