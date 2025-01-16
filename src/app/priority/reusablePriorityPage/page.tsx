@@ -9,9 +9,11 @@ import { useAppSelector } from "@/app/redux";
 import { useGetTasksByUserQuery } from "@/state/api";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 
-type PageProps = {
-  params: { priority: Priority };
-};
+interface PageProps {
+  params: {
+    reusablePriorityPage: string;
+  };
+}
 
 const columns: GridColDef[] = [
   {
@@ -129,8 +131,10 @@ export default function ReusablePriorityPage({ params }: PageProps) {
     skip: userId === null,
   });
 
+  const currentPriority = params.reusablePriorityPage as Priority;
+
   const filteredTasks = tasks?.filter(
-    (task: Task) => task.priority === params.priority,
+    (task: Task) => task.priority === currentPriority,
   );
 
   if (isLoading) {
@@ -157,7 +161,7 @@ export default function ReusablePriorityPage({ params }: PageProps) {
       />
 
       <Header
-        name={`${params.priority} Priority Tasks`}
+        name={`${currentPriority} Priority Tasks`}
         buttonComponent={
           <button
             className="mr-3 rounded bg-blue-500 px-4 py-2 font-bold text-white transition-colors hover:bg-blue-700"
@@ -198,7 +202,7 @@ export default function ReusablePriorityPage({ params }: PageProps) {
           ))}
           {filteredTasks?.length === 0 && (
             <div className="col-span-full text-center text-gray-500">
-              No tasks found with {params.priority} priority
+              No tasks found with {currentPriority} priority
             </div>
           )}
         </div>
