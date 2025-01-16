@@ -24,6 +24,10 @@ type TaskProps = {
   task: TaskType;
 };
 
+type StatusColorMap = {
+  [key in (typeof taskStatus)[number]]: string;
+};
+
 const taskStatus = ["To Do", "Work In Progress", "Under Review", "Completed"];
 
 export const Task = ({ task }: TaskProps) => {
@@ -175,7 +179,7 @@ export const TaskColumn = ({
 
   const tasksCount = tasks.filter((task) => task.status === status).length;
 
-  const statusColor: any = {
+  const statusColor: StatusColorMap = {
     "To Do": "#2563EB",
     "Work In Progress": "#059669",
     "Under Review": "#D97706",
