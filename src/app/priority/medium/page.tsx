@@ -1,8 +1,6 @@
 import { Priority } from "@/mainTypes";
 import ReusablePriorityPage from "../reusablePriorityPage/page";
 
-type Props = {};
-
-export default function MediumPage(props: Props) {
+export default function MediumPage() {
   return <ReusablePriorityPage priority={Priority.Medium} />;
 }
