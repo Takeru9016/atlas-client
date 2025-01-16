@@ -8,13 +8,13 @@ import { Priority, Status } from "@/mainTypes";
 type ModalNewProjectProps = {
   isOpen: boolean;
   onClose: () => void;
-  id: string;
+  id?: string | null;
 };
 
 export default function ModalNewTask({
   isOpen,
   onClose,
-  id,
+  id = null,
 }: ModalNewProjectProps) {
   const [createTask, { isLoading }] = useCreateTaskMutation();
 
@@ -27,9 +27,10 @@ export default function ModalNewTask({
   const [dueDate, setDueDate] = useState("");
   const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
+  const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
-    if (!title || !authorUserId) {
+    if (!title || !authorUserId || !(id !== null || projectId)) {
       return null;
     }
 
@@ -50,12 +51,12 @@ export default function ModalNewTask({
       dueDate: formattedEndDate,
       authorUserId: parseInt(authorUserId),
       assignedUserId: parseInt(assignedUserId),
-      projectId: Number(id),
+      projectId: id !== null ? Number(id) : Number(projectId),
     });
   };
 
   const isFormValid = () => {
-    return title && authorUserId;
+    return title && authorUserId && !(id !== null || projectId);
   };
 
   const selectStyle =
@@ -152,6 +153,15 @@ export default function ModalNewTask({
           value={assignedUserId}
           onChange={(e) => setAssignedUserId(e.target.value)}
         />
+        {id === null && (
+          <input
+            type="text"
+            className={inputStyle}
+            placeholder="Project ID"
+            value={projectId}
+            onChange={(e) => setProjectId(e.target.value)}
+          />
+        )}
         <button
           type="submit"
           className={`hover:bg-blue-secondary mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 ${
