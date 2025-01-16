@@ -11,7 +11,6 @@ import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 
 type PageProps = {
   params: { priority: Priority };
-  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 const columns: GridColDef[] = [
@@ -116,10 +115,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function ReusablePriorityPage({
-  params,
-  searchParams,
-}: PageProps) {
+export default function ReusablePriorityPage({ params }: PageProps) {
   const [view, setView] = useState<"list" | "table">("list");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
